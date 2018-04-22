@@ -1,0 +1,30 @@
+body{
+    background-color: rgb(36, 1, 36);
+    color: seagreen;
+}
+
+.well {
+    background-color: yellow;
+}
+
+/*
+.playArea img{
+    width: 50%;
+    height: 50%;
+}*/
+img{
+    position: absolute;
+}
+.bkGnd{
+    z-index: 2;
+}
+
+.buttns{
+    z-index: 4;
+}
+.road{
+    z-index: 6;
+}
+.playArea{
+
+    }
