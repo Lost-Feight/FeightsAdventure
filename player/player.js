@@ -1,15 +1,137 @@
-function Person(first, last, age, gender, interests) {
-    this.name = {
-      'first': first,
-      'last' : last
-    };
-    this.age = age;
-    this.gender = gender;
-    this.interests = interests;
+function Chara() {
+    this.HP = 20;
+    this.exp= 0;
+    this.posX = 25;
+    this.posY = 25;
+    this.inv = [];
+    this.level = 1;
+    this.spd=1;
+    this.str=1;
+    this.end=1;
+    var def=0;
+
     this.bio = function() {
-      alert(this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. He likes ' + this.interests[0] + ' and ' + this.interests[1] + '.');
+      alert(this.hp + 'HP- Level: ' +this.level);
     };
-    this.greeting = function() {
-      alert('Hi! I\'m ' + this.name.first + '.');
+    //player position change
+    this.posH = function(num){
+      this.posX += num;
     };
+    this.posV = function(num){
+      this.posY += num;
+    };
+    //player inventory change
+    this.addInv = function(item){
+      this.inv.push(item);
+    };
+    this.removeInv = function(item){
+      //TODO remove item from inventory
+    };
+    //player stats change
+    this.chStr = function(num){
+      this.str += num;
+    };
+    this.chSpd = function(num){
+      this.spd += num;
+    };
+    this.chEnd = function(num){
+      this.end += num;
+    };
+
+  };
+
+  function Map() {
+    this.intMap =[];// = new Array(11);
+    var myRow= [""];
+  
+  // Creates all lines:
+  for(var i=0; i < 51; i++){
+
+    // Creates an empty line
+    this.intMap.push([]);
+
+    // Adds cols to the empty line:
+    this.intMap[i].push( new Array(101));
+
+    for(var j=0; j < 51; j++){
+      // Initializes:
+      this.intMap[i][j] = "";
+    }
+}
+    
+   // console.log(this.intMap);
+   
+  /*     for (var l=0;l==100;l++){
+        this.intMap[l]=[myRow];
+      } */
+     /*  for (l=0;l==100;l++){
+        this.intMap[l]=myRow;
+      } */
+    
+   // console.log(this.intMap);
+    
+    this.intMap[25][25] = ("nesw");
+    this.exitList ="nesw";
+
+    this.generate = function(x,y,dir){
+      var howMany = Math.floor(Math.random()*3)+1;
+      console.log(howMany);
+      var exits="";
+      switch(dir){
+        case 1:     //to north
+        exits="";
+        exits += "s";
+        break;
+        case 2:     //to east
+        exits="";
+        exits += "w";
+        break;
+        case 3:     //to south
+        exits="";
+        exits += "n";
+        break;
+        case 4:     //to west
+        exits="";
+        exits += "e";
+        break;
+      }
+
+      switch (howMany){
+        case 1:
+        break;
+        case 4:
+          exits = "nesw";
+        break;
+        case 2:
+        var myTrue = true;
+          while (exits.length<howMany){
+            var n= Math.floor(4*(Math.random()));
+            var exCheck = this.exitList[n]
+            if (!exits.includes(exCheck)){
+              exits += exCheck;
+            }
+        }
+        break;
+        case 3:
+          while (exits.length<howMany){
+            var n= Math.floor(Math.random()*4);
+            if (!exits.includes(this.exitList[n])){
+              exits += this.exitList[n];
+              if (exits.length ==n){
+                myTrue = false;
+              }
+            } 
+          };
+        break;
+      }
+      this.intMap[y][x]=exits;
+    }
+  };
+
+  function Enemy() {
+    this.HP;
+    this.speed;
+    this.level;
+    this.def;
+    this.damage;
   }

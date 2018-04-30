@@ -19,12 +19,60 @@ img{
     z-index: 2;
 }
 
+
 .buttns{
+    z-index: 10;
+    padding:0;
+    font-size: large;
+    font-weight: 700;
+}
+.goNorth{  /*coords="175,25,425,125" */
+    position: fixed;
+    margin-left: 195px;
+    margin-top: 25px;
+    height:50px;
+    width:200px;
+    background-color: gray;
+    color:black;
+}
+.goSouth{  /*coords="175,475,425,575" */
+    position: fixed;
+    margin-left: 195px;
+    margin-top: 525px;
+    height:50px;
+    width:200px;
+    background-color: gray;
+    color:black;
+}
+.goEast{  /*coords="475,175,575,425 */
+    position: fixed;
+    margin-left: 525px;
+    margin-top:200px;
+    height:200px;
+    width:50px;
+    background-color: gray;
+    color:black;
+}
+.goWest{  /*coords="475,175,575,425 */
+    position: fixed;
+    margin-left: 25px;
+    margin-top:200px;
+    height:200px;
+    width:50px;
+    background-color: gray;
+    color:black;
+}
+
+
+.road{
     z-index: 4;
 }
-.road{
-    z-index: 6;
+.rotate-1{
+    transform: rotate(90deg);
 }
-.playArea{
-
-    }
+.rotate-2{
+    transform: rotate(180deg);
+}
+.rotate-3{
+    transform: rotate(270deg);
+}
