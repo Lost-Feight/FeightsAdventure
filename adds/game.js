@@ -28,7 +28,34 @@ function showMap(x,y){
     $(".bkGnd").hide();
     $(".bkGnd").remove();
 
-    $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/redBg.png"></img>');
+    switch (player.bkGround){
+        case 0:         //red
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/redBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+        case 1:         //Yellow
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/YellowBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+        case 2:         //purple
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/PurpleBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+        case 3:         //Grey
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/GreyBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+        case 4:         //Green
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/GreenBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+    }
+    
 
 
 
@@ -122,6 +149,7 @@ function showMap(x,y){
     //display game
 
     $(".road").show();
+    $(".road").show();
 
     $(".playArea").append('<button class="buttns goNorth">N</button>');    //north button
     $(".playArea").append('<button class="buttns goEast">E</button>');    //east button
@@ -214,13 +242,8 @@ function encounter(){
             console.log(maths);
 
             player.bkGround = maths;
+            
 
-            /*    default:
-                $(".bkGnd").hide();
-                $(".bkGnd").replaceWith('<img class="bkGnd" src="./background/redBg.png"></img>');
-                $(".bkGnd").show();    
-                break;
-            */
             
         }
         console.log("fight");
