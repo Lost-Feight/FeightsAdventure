@@ -1,3 +1,6 @@
+/*
+**********  Chara class (character) **********
+*/
 function Chara() {
     this.HP = 20;
     this.exp= 0;
@@ -8,7 +11,9 @@ function Chara() {
     this.spd=1;
     this.str=1;
     this.end=1;
-    var def=0;
+    this.bkGround = 0;
+    this.def=0;
+    this.name = "Fighter";
 
     this.bio = function() {
       alert(this.hp + 'HP- Level: ' +this.level);
@@ -40,6 +45,14 @@ function Chara() {
 
   };
 
+
+
+
+/*
+**********  MAP CLASS **********
+*/
+
+
   function Map() {
     this.intMap =[];// = new Array(11);
     var myRow= [""];
@@ -59,23 +72,11 @@ function Chara() {
     }
 }
     
-   // console.log(this.intMap);
-   
-  /*     for (var l=0;l==100;l++){
-        this.intMap[l]=[myRow];
-      } */
-     /*  for (l=0;l==100;l++){
-        this.intMap[l]=myRow;
-      } */
-    
-   // console.log(this.intMap);
-    
     this.intMap[25][25] = ("nesw");
     this.exitList ="nesw";
 
     this.generate = function(x,y,dir){
       var howMany = Math.floor(Math.random()*3)+1;
-      console.log(howMany);
       var exits="";
       switch(dir){
         case 1:     //to north
@@ -128,10 +129,3 @@ function Chara() {
     }
   };
 
-  function Enemy() {
-    this.HP;
-    this.speed;
-    this.level;
-    this.def;
-    this.damage;
-  }

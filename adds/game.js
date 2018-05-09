@@ -1,7 +1,11 @@
 var player = new Chara();
 var map = new Map();
+var rates = [0.1, 0.2, 0.3, 0.35];
+
 $(function(){  //on load window
     showMap(player.posX,player.posY);
+    updateChar(player);
+
 });
 
 function attack(){
@@ -21,10 +25,47 @@ function showMap(x,y){
     $(".buttns").hide();
     $(".buttns").remove();
 
+    $(".bkGnd").hide();
+    $(".bkGnd").remove();
+
+    switch (player.bkGround){
+        case 0:         //red
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/redBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+        case 1:         //Yellow
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/YellowBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+        case 2:         //purple
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/PurpleBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+        case 3:         //Grey
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/GreyBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+        case 4:         //Green
+        $(".playArea").replaceWith('<div class="playArea col-sm-10 col-md-6"><img class="bkGnd" src="./background/GreenBg.png"></img>');
+        $(".playArea").hide();
+        $(".playArea").show();
+        break;
+    }
+    
+
+
+
+
     var coOrds = map.intMap[y][x];
     var exits = coOrds.length;
-
-    if (exits ==4){             //all exits
+    
+    //determine new exits
+    
+    if (exits ==4){             //all exits 
         $(".playArea").append("<img class='road' src='./background/roads.gif'>");
     } else if (exits ==3){      //3 exits
         switch (coOrds){
@@ -103,10 +144,11 @@ function showMap(x,y){
             $(".playArea").append("<img class='road rotate-3' src='./background/road1.gif'>");
         }
     }
-    var NME = new Enemy();
+
     
-    
-    
+    //display game
+
+    $(".road").show();
     $(".road").show();
 
     $(".playArea").append('<button class="buttns goNorth">N</button>');    //north button
@@ -122,6 +164,7 @@ function showMap(x,y){
             if (!map.intMap[player.posY][player.posX]){
                 map.generate(player.posX,player.posY,1);
             }
+            encounter();
             showMap(player.posX,player.posY);
         })
     }
@@ -132,6 +175,7 @@ function showMap(x,y){
             if (!map.intMap[player.posY][player.posX]){
                 map.generate(player.posX,player.posY,2);
             }
+            encounter();
             showMap(player.posX,player.posY);
             })
     }
@@ -142,6 +186,7 @@ function showMap(x,y){
             if (!map.intMap[player.posY][player.posX]){
                 map.generate(player.posX,player.posY,3);
             }
+            encounter();
             showMap(player.posX,player.posY);
         })
     }
@@ -152,8 +197,61 @@ function showMap(x,y){
             if (!map.intMap[player.posY][player.posX]){
                 map.generate(player.posX,player.posY,4);
             }
+            encounter();
             showMap(player.posX,player.posY);
         })
     }
 }
-// useful functions
+        // useful functions
+// updates the player Information
+function updateChar(player){
+    $(".charLevel").replaceWith('<span class="charLevel">'+ player.level +'</span>')
+    $(".playerHealth").replaceWith('<span class="playerHealth">'+ player.HP +'</span>');
+    $(".playerExp").replaceWith('<span class="playerExp">'+ Math.floor(player.exp) +'</span>');
+}
+
+// Encounter
+function encounter(){
+    //roll for nothing & encounter % item
+    var rollContinue = true;
+    var rollNumber = 0;
+    while (rollContinue){ // continue to roll for EIN's (Enemy, Item, Nothing)
+
+        var roll = Math.random(); //new roll each time
+
+        if (roll < rates[rollNumber]){
+        // nothing
+        console.log("PASS");
+        rollContinue = false;
+        } else if (roll < (rates[rollNumber])*2){
+        //item
+        console.log("item");
+        } else {
+        //fight
+        player.exp += (player.level*(Math.random()*100));
+        updateChar(player);
+        if (player.exp > player.level*1000){
+            console.log("LevelUP");
+            player.exp = 0;
+            player.level++;
+            map = new Map();
+            player.posX = 25;
+            player.posY = 25;
+            
+            var maths = (Math.floor(Math.random()*100))%5;
+            console.log(maths);
+
+            player.bkGround = maths;
+            
+
+            
+        }
+        console.log("fight");
+        }
+        rollNumber++;
+        if (rollNumber >3){
+            rollContinue = false;
+        }
+    }
+    
+}

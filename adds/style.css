@@ -5,13 +5,20 @@ body{
 
 .well {
     background-color: yellow;
+    color:rgb(36, 1, 36);
 }
 
-/*
-.playArea img{
-    width: 50%;
-    height: 50%;
-}*/
+.char{
+    margin-left:615px;
+}
+.health{
+    background-color: red;
+}
+.exp{
+    background-color: rgb(34, 153, 10);
+}
+
+
 img{
     position: absolute;
 }
