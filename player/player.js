@@ -2,21 +2,26 @@
 **********  Chara class (character) **********
 */
 function Chara() {
-    this.HP = 20;
+    this.maxHp = 40;
+    this.HP = this.maxHp;
+
     this.exp= 0;
     this.posX = 25;
     this.posY = 25;
     this.inv = [];
     this.level = 1;
-    this.spd=1;
+    this.speed=1;
     this.str=1;
     this.end=1;
     this.bkGround = 0;
     this.def=0;
+    this.PDamage=3;
     this.name = "Fighter";
+    this.inventory = [];
+    this.attackList = ["attack for ", "attack, doing ", "swing furiously doing ", "hit doing ", "wildly swing for "];
 
     this.bio = function() {
-      alert(this.hp + 'HP- Level: ' +this.level);
+      alert( this.HP + 'HP- Level: ' + this.level );
     };
     //player position change
     this.posH = function(num){
@@ -43,89 +48,72 @@ function Chara() {
       this.end += num;
     };
 
-  };
+    this.start = function start(){
+      //map.showJBg();
+      $(".playArea").append("<div class = 'startinput'><input type='text' name='CharacterName' id='CharName'></input><br><button class='Charname'>Name your character</button></div>");
+      $( "input" ).keyup(function() {
+        this.name = $( this ).val();
+        $( ".charName" ).text( this.name );
+      }).keyup();
+      
 
-
-
-
-/*
-**********  MAP CLASS **********
-*/
-
-
-  function Map() {
-    this.intMap =[];// = new Array(11);
-    var myRow= [""];
-  
-  // Creates all lines:
-  for(var i=0; i < 51; i++){
-
-    // Creates an empty line
-    this.intMap.push([]);
-
-    // Adds cols to the empty line:
-    this.intMap[i].push( new Array(101));
-
-    for(var j=0; j < 51; j++){
-      // Initializes:
-      this.intMap[i][j] = "";
+    $(".Charname").mouseup(function(){
+    	player.name = $("input").val();
+    	map.updateChar(player);
+        map.showMap(player.posX,player.posY, false);
+        })
+        
+      
     }
-}
+   
+  this.fight= function fight(enemy){
+
+    var damage = enemy.damage *Math.random();
+    enemy.HP -= damage;
+    var eHit = Math.floor(Math.random()*enemy.attackList.length);
+                        //PLAYER attacks
+    $(".well2").append("<p class='player'> You " + this.attackList[eHit] + this.PDamage +" Damage </p>");
+    $(".well2").animate({scrollTop: $('.well2').prop("scrollHeight")}, 200);
+						//NME attacks
+	if (enemy.HP <=0){
+		player.HP = player.maxHp;
+		player.exp+= Math.floor(Math.random()*100);
+		if (player.exp >500*player.level){
+			player.exp = 0;
+			player.level++;
+			var newBkGround = Math.floor(Math.random()*4);
+			while (this.bkGround == newBkGround){
+				newBkGround = Math.floor(Math.random()*4);
+			}
+			player.bkGround = newBkGround;
+			map = new Map;
+			player.posX = 25;
+			player.posY = 25;
+			map.updateChar(player);
+			map.showMap(player.posX,player.posY,false);	
+		} else {
+    	map.updateChar(player);
+		map.showMap(player.posX,player.posY,false);
+		}
+	} else if (enemy.HP >0){
+	enemy.fight(enemy);
+    map.updateChar(player);
+	}
+	if (player.HP <=0){
+		$(".playArea").html("<img class= 'gameover' src='./background/Gameover.png' > </img><h2> Reload the page to start again</h2>");
+		
+	}
+
     
-    this.intMap[25][25] = ("nesw");
-    this.exitList ="nesw";
+  }           //end fight() function
 
-    this.generate = function(x,y,dir){
-      var howMany = Math.floor(Math.random()*3)+1;
-      var exits="";
-      switch(dir){
-        case 1:     //to north
-        exits="";
-        exits += "s";
-        break;
-        case 2:     //to east
-        exits="";
-        exits += "w";
-        break;
-        case 3:     //to south
-        exits="";
-        exits += "n";
-        break;
-        case 4:     //to west
-        exits="";
-        exits += "e";
-        break;
-      }
+  this.defend = function defend(){
+	player.HP += (Math.floor(Math.random()*this.level*this.end*10));
+	if (player.HP > player.maxHp){
+		player.HP = player.maxHp;
+	}
+	map.updateChar(player);
+  } //end defend function
 
-      switch (howMany){
-        case 1:
-        break;
-        case 4:
-          exits = "nesw";
-        break;
-        case 2:
-        var myTrue = true;
-          while (exits.length<howMany){
-            var n= Math.floor(4*(Math.random()));
-            var exCheck = this.exitList[n]
-            if (!exits.includes(exCheck)){
-              exits += exCheck;
-            }
-        }
-        break;
-        case 3:
-          while (exits.length<howMany){
-            var n= Math.floor(Math.random()*4);
-            if (!exits.includes(this.exitList[n])){
-              exits += this.exitList[n];
-              if (exits.length ==n){
-                myTrue = false;
-              }
-            } 
-          };
-        break;
-      }
-      this.intMap[y][x]=exits;
-    }
-  };
+}; //end Chara class
 

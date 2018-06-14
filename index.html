@@ -8,15 +8,14 @@
     </head>
     <body>
 
-        <h1>Adventure Game (<span class="coord"></span>)</h1>
+        <h1>Adventure Game ( <span class="coord"></span> )</h1>
 
         <div class="container-fluid">
             <div class="row">
                 <!--<div class="well"> -->
                     <div class="playArea col-sm-10 col-md-6">
-                            <img class="bkGnd" src="./background/redBg.png"></img>
-                
-            
+                     <!--        <img class="bkGnd" src="./background/redBg.png"></img> -->
+
                     </div>
                     <div class="charArea col-sm-2 col-md-6">
 
@@ -42,7 +41,13 @@
                         <div class="col-8 exp">
                             <span class="playerExp text-center"></span>
                         </div>
-                    </div>
+                </div>
+            </div>
+            <div class="row char well2">
+                <div class="gameInfo">
+                    <p>Welcome to Feights Adventure</p>
+                    <p>Use the Compass Points to move around</p>
+                </div>
             </div>
         </div>
 
@@ -52,7 +57,9 @@
 
         <script src="./adds/jquery-3.2.1.min.js"></script>
         <script src="./adds/bootstrap-4/js/bootstrap.js"></script>
-        <script src="./player/player.js"></script>
+        <script src="./player/player.js"></script> 
+        <script src="./player/map.js"></script>    
+        <script src="./player/enemy.js"></script>
         <script src="./adds/game.js"></script>
         
 

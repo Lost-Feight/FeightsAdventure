@@ -1,10 +1,10 @@
 body{
     background-color: rgb(36, 1, 36);
-    color: seagreen;
+    color: rgb(46, 139, 86);
 }
 
 .well {
-    background-color: yellow;
+    background-color: rgba(255, 255, 0, 0.966);
     color:rgb(36, 1, 36);
 }
 
@@ -12,12 +12,36 @@ body{
     margin-left:615px;
 }
 .health{
-    background-color: red;
+    background-color: rgb(255,0,0);
 }
 .exp{
     background-color: rgb(34, 153, 10);
 }
 
+.well2 {
+    background-color: black;
+    color:green;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    height:400px;
+    overflow-y: scroll;
+}
+
+.enemy {
+    background-color: cornflowerblue;
+    color: red;
+}
+.player {
+    background-color: palegreen;
+    color: rgb(133, 3, 3);    
+}
+.enemyImg {
+    padding-left: 100px;
+    padding-top: 25px;
+    z-index: 10;
+}
+.playerImg {
+    z-index: 10;
+}
 
 img{
     position: absolute;
@@ -70,6 +94,9 @@ img{
     color:black;
 }
 
+button, input {
+    z-index: 9;
+}
 
 .road{
     z-index: 4;
